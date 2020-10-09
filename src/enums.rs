@@ -18,7 +18,15 @@ fn move_avatar(m: Movement) {
     }
 }
 
-pub fn run () {
+fn do_something_that_might_fail(i:i32) -> Result<f32,String> {
+    if i == 42 {
+        Ok(13.0)
+    } else {
+        Err(String::from("this is not the right number"))   
+    }
+}
+
+pub fn run () -> Result<(), String> {
     let avatar1 = Movement::Up;
     let avatar2 = Movement::Down;
     let avatar3 = Movement::Left;
@@ -28,4 +36,9 @@ pub fn run () {
     move_avatar(avatar2);
     move_avatar(avatar3);
     move_avatar(avatar4);
+
+    let v = do_something_that_might_fail(42)?;
+    let w = do_something_that_might_fail(2);
+    println!("ENUM: {:?}", (v, w));
+    Ok(())
 }

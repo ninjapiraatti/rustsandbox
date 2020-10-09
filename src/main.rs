@@ -14,6 +14,11 @@ mod cli;
 mod mmatch;
 mod loops;
 mod seacreature;
+mod generics;
+mod ownership;
+mod oopish;
+mod boxx;
+mod kilke;
 
 fn main() {
     print::run();
@@ -27,9 +32,14 @@ fn main() {
     functions::run();
     pointers::run();
     structs::run();
-    enums::run();
+    println!("{:?}", enums::run());
     cli::run();
     mmatch::run();
     loops::run();
     seacreature::run();
+    generics::run();
+    ownership::run();
+    oopish::run();
+    boxx::run();
+    kilke::run();
 }

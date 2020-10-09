@@ -12,6 +12,7 @@ pub fn run () {
     println!("Length of bye: {}", bye.len());
     bye.push('\u{1F980}');
     bye.push_str("Crab");
+    bye = bye + "!!!";
     println!("And here's bye with crab: {}", bye);
 
     // Contain aka. strstr
@@ -23,5 +24,34 @@ pub fn run () {
     }
 
     // Assertion testing
-    assert_eq!(16, bye.len());
+    assert_eq!(19, bye.len());
+
+    // String literals are always Unicode.
+    // String literals type are &'static str:
+    // & meaning that it's referring to a place in memory, and it lacks a &mut meaning that the compiler will not allow modification
+    // 'static meaning the string data will be available till the end of our program (it never drops)
+    // str means that it points to a sequence of bytes that are always valid utf-8
+
+    let a: &'static str = "hi 🦀";
+    println!("{} {}", a, a.len());
+
+    println!("helloooo
+    world"); // notice that the spacing before w is ignored
+
+    let html: &'static str = r#"
+    <div class="advice">
+        Raw strings are useful for some situations.
+    </div>
+    "#;
+    println!("{}", html);
+
+    // If you have some very large text, consider using the macro include_str! to include text from local files in your program:
+    let gitignore = include_str!("../.gitignore");
+    println!("{}", gitignore);
+
+    // Concat and join
+    let helloworld = ["hello", " ", "world", "!"].concat();
+    let abc = ["a", "b", "c"].join(",");
+    println!("{}", helloworld);
+    println!("{}",abc);
 }
