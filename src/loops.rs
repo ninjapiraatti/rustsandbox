@@ -8,3 +8,9 @@ pub fn run() {
     };
     println!("from loop: {}", v);
 }
+
+/*
+    for (i, c) in my_str.chars().enumerate() {
+        // do something with character `c` and index `i`
+    }
+    */

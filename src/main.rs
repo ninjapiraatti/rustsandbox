@@ -21,11 +21,11 @@
 // mod kilke;
 
 //mod codewars_mirror;
-mod codewars_sumsingles;
+mod codewars_hungarian;
 
 fn main() {
     //codewars_mirror::run();
-    codewars_sumsingles::run();
+    codewars_hungarian::run();
 
     // print::run();
     // variables::run();
