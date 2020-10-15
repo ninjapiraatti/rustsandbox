@@ -54,4 +54,10 @@ pub fn run () {
     let abc = ["a", "b", "c"].join(",");
     println!("{}", helloworld);
     println!("{}",abc);
+
+    // Strings are different from C. Because of unicode, you can't just jump around
+    // with indexes. Use something along these lines:
+    let k = "kylpynalle";
+    let tempchar = k.chars().nth(3).unwrap();
+    println!("Character in index 3 is {}", tempchar);
 }

@@ -1,7 +1,7 @@
 // mod print;
 // mod variables;
 // mod types;
-// mod strings;
+mod strings;
 // mod tuples;
 // mod arrays;
 // mod vectors;
@@ -19,22 +19,24 @@
 // mod oopish;
 // mod boxx;
 // mod kilke;
-mod collectioon;
+// mod collectioon;
 
 // mod codewars_mirror;
 // mod codewars_hungarian;
 // mod codewars_stones;
+// mod codewars_removep;
 
 fn main() {
     // codewars_mirror::run();
     // codewars_hungarian::run();
     // codewars_stones::run();
+    // codewars_removep::run();
 
-    collectioon::run();
+    // collectioon::run();
     // print::run();
     // variables::run();
     // types::run();
-    // strings::run();
+    strings::run();
     // tuples::run();
     // arrays::run();
     // vectors::run();
