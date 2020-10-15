@@ -19,16 +19,18 @@
 // mod oopish;
 // mod boxx;
 // mod kilke;
+mod collectioon;
 
 // mod codewars_mirror;
 // mod codewars_hungarian;
-mod codewars_stones;
+// mod codewars_stones;
 
 fn main() {
     // codewars_mirror::run();
     // codewars_hungarian::run();
-    codewars_stones::run();
+    // codewars_stones::run();
 
+    collectioon::run();
     // print::run();
     // variables::run();
     // types::run();
