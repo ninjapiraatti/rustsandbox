@@ -20,12 +20,14 @@
 // mod boxx;
 // mod kilke;
 
-//mod codewars_mirror;
-mod codewars_hungarian;
+// mod codewars_mirror;
+// mod codewars_hungarian;
+mod codewars_stones;
 
 fn main() {
-    //codewars_mirror::run();
-    codewars_hungarian::run();
+    // codewars_mirror::run();
+    // codewars_hungarian::run();
+    codewars_stones::run();
 
     // print::run();
     // variables::run();
