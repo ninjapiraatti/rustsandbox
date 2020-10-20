@@ -1,7 +1,7 @@
 // mod print;
 // mod variables;
 // mod types;
-mod strings;
+// mod strings;
 // mod tuples;
 // mod arrays;
 // mod vectors;
@@ -25,18 +25,22 @@ mod strings;
 // mod codewars_hungarian;
 // mod codewars_stones;
 // mod codewars_removep;
+// mod codewars_century;
+mod codewars_casinochips;
 
 fn main() {
     // codewars_mirror::run();
     // codewars_hungarian::run();
     // codewars_stones::run();
     // codewars_removep::run();
+    // codewars_century::run();
+    codewars_casinochips::run();
 
     // collectioon::run();
     // print::run();
     // variables::run();
     // types::run();
-    strings::run();
+    // strings::run();
     // tuples::run();
     // arrays::run();
     // vectors::run();
