@@ -40,11 +40,15 @@ mod example_tests {
 
 mod isc {
     pub fn encode(s: &str) -> String {
-        todo!("your task should you choose to accept it");
+        let res = String::from(s);
+        println!("{:?}", res.len());
+        res
     }
     
     pub fn decode(s: &str) -> String {
-        todo!("your task should you choose to accept it");
+        let res = String::from(s);
+        println!("{:?}", res);
+        res
     }
 }
 
