@@ -26,7 +26,8 @@
 // mod codewars_stones;
 // mod codewars_removep;
 // mod codewars_century;
-mod codewars_casinochips;
+// mod codewars_casinochips;
+mod codewars_interlaced;
 
 fn main() {
     // codewars_mirror::run();
@@ -34,7 +35,8 @@ fn main() {
     // codewars_stones::run();
     // codewars_removep::run();
     // codewars_century::run();
-    codewars_casinochips::run();
+    // codewars_casinochips::run();
+    codewars_interlaced::run();
 
     // collectioon::run();
     // print::run();
