@@ -29,7 +29,8 @@
 // mod codewars_casinochips;
 // mod codewars_interlaced;
 // mod codewars_sortbybit;
-mod codewars_nsmallest;
+// mod codewars_nsmallest;
+mod codewars_urlshortener;
 
 fn main() {
     // codewars_mirror::run();
@@ -40,7 +41,8 @@ fn main() {
     // codewars_casinochips::run();
     // codewars_interlaced::run();
     // codewars_sortbybit::run();
-    codewars_nsmallest::run();
+    // codewars_nsmallest::run();
+    codewars_urlshortener::run();
 
     // collectioon::run();
     // print::run();
