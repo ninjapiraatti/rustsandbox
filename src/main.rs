@@ -27,7 +27,8 @@
 // mod codewars_removep;
 // mod codewars_century;
 // mod codewars_casinochips;
-mod codewars_interlaced;
+// mod codewars_interlaced;
+mod codewars_sortbybit;
 
 fn main() {
     // codewars_mirror::run();
@@ -36,7 +37,8 @@ fn main() {
     // codewars_removep::run();
     // codewars_century::run();
     // codewars_casinochips::run();
-    codewars_interlaced::run();
+    // codewars_interlaced::run();
+    codewars_sortbybit::run();
 
     // collectioon::run();
     // print::run();
