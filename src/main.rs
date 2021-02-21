@@ -30,7 +30,8 @@
 // mod codewars_interlaced;
 // mod codewars_sortbybit;
 // mod codewars_nsmallest;
-mod codewars_urlshortener;
+// mod codewars_urlshortener;
+mod codewars_elevator;
 
 fn main() {
     // codewars_mirror::run();
@@ -42,7 +43,8 @@ fn main() {
     // codewars_interlaced::run();
     // codewars_sortbybit::run();
     // codewars_nsmallest::run();
-    codewars_urlshortener::run();
+	// codewars_urlshortener::run();
+	codewars_elevator::run();
 
     // collectioon::run();
     // print::run();
