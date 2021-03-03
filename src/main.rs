@@ -31,9 +31,19 @@
 // mod codewars_sortbybit;
 // mod codewars_nsmallest;
 // mod codewars_urlshortener;
-mod codewars_elevator;
+// mod codewars_elevator;
+
+// mod udemy_ho_structs_enums;
+// mod udemy_ho_results_options;
+// mod udemy_ho_looping;
+mod udemy_ho_mutability;
 
 fn main() {
+	// udemy_ho_structs_enums::run();
+	// udemy_ho_results_options::run();
+	// udemy_ho_looping::run();
+	udemy_ho_mutability::run();
+
     // codewars_mirror::run();
     // codewars_hungarian::run();
     // codewars_stones::run();
@@ -44,7 +54,7 @@ fn main() {
     // codewars_sortbybit::run();
     // codewars_nsmallest::run();
 	// codewars_urlshortener::run();
-	codewars_elevator::run();
+	// codewars_elevator::run();
 
     // collectioon::run();
     // print::run();
