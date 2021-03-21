@@ -63,7 +63,6 @@ pub fn run () {
 
 	// You can iterate characters with char_indices
 	fn string_find_a(s: &str) -> &str {
-		let n = 0;
 		for (n, x) in s.char_indices() {
 			if x == 'a' {
 				return &s[n..];
