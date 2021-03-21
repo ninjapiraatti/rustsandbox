@@ -38,7 +38,9 @@
 // mod udemy_ho_looping;
 // mod udemy_ho_mutability;
 // mod udemy_ho_pointers_memory;
-mod udemy_ho_own_memory;
+// mod udemy_ho_own_memory;
+// mod udemy_ho_mergesort;
+mod udemy_ho_quicksort;
 
 // There are many aninmals like birb, formal chikcen, disco chikcen, treefloof, nope rope, sea flap flap, murder log, wizard cow,
 // flopwop, danger zebra, stab rabbit, fart squirrel, blub blub doggo, trouble bubble, aquatic sock puppet, water pistachio,
@@ -52,7 +54,9 @@ fn main() {
 	// udemy_ho_looping::run();
 	// udemy_ho_mutability::run();
 	// udemy_ho_pointers_memory::run();
-	udemy_ho_own_memory::run();
+	// udemy_ho_own_memory::run();
+	// udemy_ho_mergesort::run();
+	udemy_ho_quicksort::run();
 
     // codewars_mirror::run();
     // codewars_hungarian::run();
