@@ -36,13 +36,23 @@
 // mod udemy_ho_structs_enums;
 // mod udemy_ho_results_options;
 // mod udemy_ho_looping;
-mod udemy_ho_mutability;
+// mod udemy_ho_mutability;
+// mod udemy_ho_pointers_memory;
+mod udemy_ho_own_memory;
+
+// There are many aninmals like birb, formal chikcen, disco chikcen, treefloof, nope rope, sea flap flap, murder log, wizard cow,
+// flopwop, danger zebra, stab rabbit, fart squirrel, blub blub doggo, trouble bubble, aquatic sock puppet, water pistachio,
+// cheese boi, noodle bear
+
+// There are also many activities like mlem, blep, boop, bave, derp, 
 
 fn main() {
 	// udemy_ho_structs_enums::run();
 	// udemy_ho_results_options::run();
 	// udemy_ho_looping::run();
-	udemy_ho_mutability::run();
+	// udemy_ho_mutability::run();
+	// udemy_ho_pointers_memory::run();
+	udemy_ho_own_memory::run();
 
     // codewars_mirror::run();
     // codewars_hungarian::run();

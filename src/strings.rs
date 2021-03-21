@@ -60,4 +60,16 @@ pub fn run () {
     let k = "kylpynalle";
     let tempchar = k.chars().nth(3).unwrap();
     println!("Character in index 3 is {}", tempchar);
+
+	// You can iterate characters with char_indices
+	fn string_find_a(s: &str) -> &str {
+		let n = 0;
+		for (n, x) in s.char_indices() {
+			if x == 'a' {
+				return &s[n..];
+			}
+		}
+		s
+	}
+	println!("{:?}", string_find_a("kylpynalle"));
 }
