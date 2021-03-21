@@ -1,0 +1,43 @@
+mod arrays;
+mod boxx;
+mod cli;
+mod collectioon;
+mod conditionals;
+mod enums;
+mod functions;
+mod generics;
+mod mmatch;
+mod oopish;
+mod ownership;
+mod pointers;
+mod print;
+mod seacreature;
+mod strings;
+mod structs;
+mod tuples;
+mod types;
+mod variables;
+mod vectors;
+
+pub fn runall() {
+	arrays::run();
+	boxx::run();
+	cli::run();
+	collectioon::run();
+	conditionals::run();
+	enums::run();
+	functions::run();
+	generics::run();
+	mmatch::run();
+	oopish::run();
+	ownership::run();
+	pointers::run();
+	print::run();
+	seacreature::run();
+	strings::run();
+	structs::run();
+	tuples::run();
+	types::run();
+	variables::run();
+	vectors::run();
+}

@@ -46,7 +46,7 @@ pub fn run () {
     println!("{}", html);
 
     // If you have some very large text, consider using the macro include_str! to include text from local files in your program:
-    let gitignore = include_str!("../.gitignore");
+    let gitignore = include_str!("../../.gitignore");
     println!("{}", gitignore);
 
     // Concat and join
