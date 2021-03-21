@@ -2,7 +2,8 @@
 // Video 13: Quick sort
 
 pub fn pivot<T: std::cmp::PartialOrd>(v: &mut [T]) -> usize {
-	let mut p = rng::rng(v.len());
+	//let mut p = rng::rng(v.len()); // How to get the rng to work from here?
+	let mut p = v.len() - 2;
 	v.swap(p, 0);
 	p = 0;
 	for i in 1..v.len() {

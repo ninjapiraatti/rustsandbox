@@ -1,13 +1,13 @@
-mod codewars_casinochips;
-mod codewars_century;
-mod codewars_elevator;
-mod codewars_hungarian;
+pub mod codewars_casinochips;
+pub mod codewars_century;
+pub mod codewars_elevator;
+pub mod codewars_hungarian;
 //mod codewars_interlaced;
-mod codewars_mirror;
-mod codewars_nsmallest;
-mod codewars_removep;
-mod codewars_sortbybit;
-mod codewars_stones;
+pub mod codewars_mirror;
+pub mod codewars_nsmallest;
+pub mod codewars_removep;
+pub mod codewars_sortbybit;
+pub mod codewars_stones;
 //mod codewars_urlshortener;
 
 pub fn runall() {
