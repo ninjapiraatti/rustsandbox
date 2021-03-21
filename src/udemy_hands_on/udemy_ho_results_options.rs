@@ -7,12 +7,6 @@ pub enum Res<T, E> { // You can also use standard library versions
 	Error(E),
 }
 
-#[derive(Debug)]
-pub enum Option<T> { // Not actually used in this exercise
-	Some(T),
-	None,
-}
-
 pub fn run () {
 	let a = divide(6, 2);
 	if let Res::Thing(v) = a { // This means that if divide returns a thing, not error with a as parameter, then println

@@ -22,11 +22,11 @@ mod tests {
 fn remove_parentheses(s: &str) -> String {
     let mut finished = false;
     let mut res = String::from(s);
-    let mut i = 0;
-    let mut startt = 0;
-    let mut endd = 0;
-    let mut found_start = false;
-    let mut found_end =  false;
+    let mut i;
+    let mut startt;
+    let mut endd;
+    let mut found_start;
+    let mut found_end;
     while finished == false{
         i = 0;
         startt = 0;

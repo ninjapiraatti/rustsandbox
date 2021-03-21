@@ -25,7 +25,7 @@ pub fn runall() {
 	cli::run();
 	collectioon::run();
 	conditionals::run();
-	enums::run();
+	enums::run().ok();
 	functions::run();
 	generics::run();
 	mmatch::run();

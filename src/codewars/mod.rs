@@ -2,7 +2,7 @@ mod codewars_casinochips;
 mod codewars_century;
 mod codewars_elevator;
 mod codewars_hungarian;
-mod codewars_interlaced;
+//mod codewars_interlaced;
 mod codewars_mirror;
 mod codewars_nsmallest;
 mod codewars_removep;
