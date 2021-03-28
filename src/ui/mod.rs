@@ -1,5 +1,5 @@
 extern crate termion;
-use termion::color;
+use termion::{async_stdin, clear, color, cursor, style};
 use termion::raw::IntoRawMode;
 use std::io::{Read, Write, stdout, stdin};
 
@@ -25,6 +25,17 @@ struct UI<R, W> {
 }
 
 impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
+	fn start(&mut self) {
+		write!(self.stdout, "{}", cursor::Hide).unwrap();
+		self.reset();
+		loop {
+			if !self.update() {
+                return;
+            }
+			write!(self.stdout, "{}", style::Reset).unwrap();
+            self.stdout.flush().unwrap();
+		}
+	}
 	fn draw_horizontal_line(&mut self, chr: &str, width: u16) {
 		for _ in 0..width { self.stdout.write(chr.as_bytes()).unwrap(); }
 	}
@@ -32,9 +43,16 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 	fn reset(&mut self) {
 		let width: u16 = self.width as u16;
         let height: u16 = self.height as u16;
+		write!(self.stdout,
+			"{}{}{}",
+			termion::clear::All,
+			termion::cursor::Goto(1, 1),
+			termion::style::Reset)
+			.unwrap();
 		self.stdout.write(TOP_LEFT_CORNER.as_bytes()).unwrap();
 		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
 		self.stdout.write(TOP_RIGHT_CORNER.as_bytes()).unwrap();
+		self.stdout.flush().unwrap();
 	}
 
 	fn update(&mut self) -> bool{
@@ -63,13 +81,6 @@ fn init_ui(width: usize, height: usize, random: usize) {
 	let mut stdout = stdout.lock().into_raw_mode().unwrap();
 	let stdin = stdin();
 	let stdin = stdin.lock();
-	write!(stdout,
-		"{}{}{}",
-		termion::clear::All,
-		termion::cursor::Goto(1, 1),
-		termion::style::Reset)
-		.unwrap();
-	stdout.flush().unwrap();
 	let mut ui = UI {
 		width: width,
 		height: height,
@@ -78,9 +89,7 @@ fn init_ui(width: usize, height: usize, random: usize) {
 		random: random
 	};
 	ui.reset();
-	if !ui.update() {
-		return;
-	}
+	ui.start();
 }
 
 pub fn main(nbr: usize) {
