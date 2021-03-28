@@ -5,6 +5,10 @@ use std::io::{Read, Write, stdout, stdin};
 
 mod graphics {
 	pub const HORIZONTAL_WALL: &'static str = "═"; // Public constant. The &'static (I think) tells the program that this will live until the end.
+	pub const TOP_LEFT_CORNER: &'static str = "╔";
+    pub const TOP_RIGHT_CORNER: &'static str = "╗";
+    pub const BOTTOM_LEFT_CORNER: &'static str = "╚";
+    pub const BOTTOM_RIGHT_CORNER: &'static str = "╝";
 }
 
 use self::graphics::*;
@@ -20,13 +24,17 @@ struct UI<R, W> {
 	random: usize,
 }
 
-impl <R: Read, W: Write> UI<R, W> {
+impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 	fn draw_horizontal_line(&mut self, chr: &str, width: u16) {
 		for _ in 0..width { self.stdout.write(chr.as_bytes()).unwrap(); }
 	}
 
-	fn reset() {
-
+	fn reset(&mut self) {
+		let width: u16 = self.width as u16;
+        let height: u16 = self.height as u16;
+		self.stdout.write(TOP_LEFT_CORNER.as_bytes()).unwrap();
+		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
+		self.stdout.write(TOP_RIGHT_CORNER.as_bytes()).unwrap();
 	}
 
 	fn update(&mut self) -> bool{
@@ -46,7 +54,7 @@ impl <R: Read, W: Write> UI<R, W> {
             b'l' | b'd' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
             _ => {},
         }
-        true
+		true
 	}
 }
 
@@ -56,12 +64,10 @@ fn init_ui(width: usize, height: usize, random: usize) {
 	let stdin = stdin();
 	let stdin = stdin.lock();
 	write!(stdout,
-		"{}{}{}yo, 'q' will exit.{}{}",
+		"{}{}{}",
 		termion::clear::All,
-		termion::cursor::Goto(5, 5),
-		termion::style::Bold,
-		termion::style::Reset,
-		termion::cursor::Goto(20, 10))
+		termion::cursor::Goto(1, 1),
+		termion::style::Reset)
 		.unwrap();
 	stdout.flush().unwrap();
 	let mut ui = UI {
@@ -71,7 +77,10 @@ fn init_ui(width: usize, height: usize, random: usize) {
 		stdout: stdout,
 		random: random
 	};
-	ui.update();
+	ui.reset();
+	if !ui.update() {
+		return;
+	}
 }
 
 pub fn main(nbr: usize) {
