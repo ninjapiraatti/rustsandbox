@@ -70,6 +70,17 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 		}
 	}
 
+	fn draw_box(&mut self, x1: u16, y1:u16, x2: u16, y2: u16) {
+		self.draw_character(TOP_LEFT_CORNER, x1, y1);
+		self.draw_horizontal_line(HORIZONTAL_WALL, x1 + 1, y1, x2);
+		self.draw_character(TOP_RIGHT_CORNER, x2, y1);
+		self.draw_vertical_line(VERTICAL_WALL, x1, y1 + 1, y2);
+		self.draw_vertical_line(VERTICAL_WALL, x2, y1 + 1, y2);
+		self.draw_character(BOTTOM_LEFT_CORNER, x1, y2);
+		self.draw_horizontal_line(HORIZONTAL_WALL, x1 + 1, y2, x2);
+		self.draw_character(BOTTOM_RIGHT_CORNER, x2, y2);
+	}
+
 	fn reset(&mut self) {
 		let width: u16 = self.width as u16;
         let height: u16 = self.height as u16;
@@ -79,14 +90,7 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 			termion::cursor::Goto(1, 1),
 			termion::color::Fg(color::Cyan))
 			.unwrap();
-		self.draw_character(TOP_LEFT_CORNER, 1, 1);
-		self.draw_horizontal_line(HORIZONTAL_WALL, 2, 1, width);
-		self.draw_character(TOP_RIGHT_CORNER, width, 1);
-		self.draw_vertical_line(VERTICAL_WALL, 1, 2, height);
-		self.draw_vertical_line(VERTICAL_WALL, width, 2, height);
-		self.draw_character(BOTTOM_LEFT_CORNER, 1, height);
-		self.draw_horizontal_line(HORIZONTAL_WALL, 2, height, width);
-		self.draw_character(BOTTOM_RIGHT_CORNER, width, height);
+		self.draw_box(1, 1, width, height);
 		self.stdout.flush().unwrap();
 	}
 
