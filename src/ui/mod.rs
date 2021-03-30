@@ -94,5 +94,6 @@ fn init_ui(width: usize, height: usize, random: usize) {
 
 pub fn main(nbr: usize) {
     // Initialize termion stuff.
-	init_ui(80, 40, nbr);
+	let size: (u16, u16) = termion::terminal_size().unwrap();
+	init_ui(size.0 as usize, size.1 as usize, nbr);
 }
