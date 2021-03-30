@@ -37,13 +37,36 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
             self.stdout.flush().unwrap();
 		}
 	}
-	fn draw_horizontal_line(&mut self, chr: &str, width: u16) {
-		for _ in 0..width { self.stdout.write(chr.as_bytes()).unwrap(); }
+
+	fn draw_character(&mut self, chr: &str, x: u16, y: u16) {
+		write!(self.stdout, "{}{}{}{}", 
+			termion::color::Bg(color::Rgb(5,25,25)),
+			cursor::Goto(x, y as u16),
+			chr,
+			termion::color::Bg(color::Reset))
+			.unwrap();
+	}
+
+	fn draw_horizontal_line(&mut self, chr: &str, x: u16, y: u16, width: u16) {
+		//for _ in 0..width { self.stdout.write(chr.as_bytes()).unwrap(); }
+		for i in x..width {
+			write!(self.stdout, "{}{}{}{}", 
+				termion::color::Bg(color::Rgb(5,25,25)), 
+				cursor::Goto(i, y as u16),
+				chr,
+				termion::color::Bg(color::Reset))
+				.unwrap();
+		}
 	}
 
 	fn draw_vertical_line(&mut self, chr: &str, x: u16, y: u16, height: u16) {
 		for i in y..height {
-			write!(self.stdout, "{}{}", cursor::Goto(x, i as u16), chr).unwrap();
+			write!(self.stdout, "{}{}{}{}", 
+				termion::color::Bg(color::Rgb(5,25,25)), 
+				cursor::Goto(x, i as u16),
+				chr,
+				termion::color::Bg(color::Reset))
+				.unwrap();
 		}
 	}
 
@@ -54,16 +77,16 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 			"{}{}{}",
 			termion::clear::All,
 			termion::cursor::Goto(1, 1),
-			termion::style::Reset)
+			termion::color::Fg(color::Cyan))
 			.unwrap();
-		self.stdout.write(TOP_LEFT_CORNER.as_bytes()).unwrap();
-		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
-		self.stdout.write(TOP_RIGHT_CORNER.as_bytes()).unwrap();
+		self.draw_character(TOP_LEFT_CORNER, 1, 1);
+		self.draw_horizontal_line(HORIZONTAL_WALL, 2, 1, width);
+		self.draw_character(TOP_RIGHT_CORNER, width, 1);
 		self.draw_vertical_line(VERTICAL_WALL, 1, 2, height);
 		self.draw_vertical_line(VERTICAL_WALL, width, 2, height);
-		self.stdout.write(BOTTOM_LEFT_CORNER.as_bytes()).unwrap();
-		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
-		self.stdout.write(BOTTOM_RIGHT_CORNER.as_bytes()).unwrap();
+		self.draw_character(BOTTOM_LEFT_CORNER, 1, height);
+		self.draw_horizontal_line(HORIZONTAL_WALL, 2, height, width);
+		self.draw_character(BOTTOM_RIGHT_CORNER, width, height);
 		self.stdout.flush().unwrap();
 	}
 
@@ -78,10 +101,10 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 
         match key_bytes[0] {
             b'q' => return false,
-            b'k' | b'w' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
-            b'j' | b's' => self.draw_horizontal_line(HORIZONTAL_WALL, height),
-            b'h' | b'a' => self.draw_horizontal_line(HORIZONTAL_WALL, random),
-            b'l' | b'd' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
+            //b'k' | b'w' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
+            //b'j' | b's' => self.draw_horizontal_line(HORIZONTAL_WALL, height),
+            //b'h' | b'a' => self.draw_horizontal_line(HORIZONTAL_WALL, random),
+            //b'l' | b'd' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
             _ => {},
         }
 		true
