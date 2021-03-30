@@ -5,6 +5,7 @@ use std::io::{Read, Write, stdout, stdin};
 
 mod graphics {
 	pub const HORIZONTAL_WALL: &'static str = "═"; // Public constant. The &'static (I think) tells the program that this will live until the end.
+	pub const VERTICAL_WALL: &'static str = "║";
 	pub const TOP_LEFT_CORNER: &'static str = "╔";
     pub const TOP_RIGHT_CORNER: &'static str = "╗";
     pub const BOTTOM_LEFT_CORNER: &'static str = "╚";
@@ -40,6 +41,12 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 		for _ in 0..width { self.stdout.write(chr.as_bytes()).unwrap(); }
 	}
 
+	fn draw_vertical_line(&mut self, chr: &str, x: u16, y: u16, height: u16) {
+		for i in y..height {
+			write!(self.stdout, "{}{}", cursor::Goto(x, i as u16), chr).unwrap();
+		}
+	}
+
 	fn reset(&mut self) {
 		let width: u16 = self.width as u16;
         let height: u16 = self.height as u16;
@@ -52,6 +59,11 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 		self.stdout.write(TOP_LEFT_CORNER.as_bytes()).unwrap();
 		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
 		self.stdout.write(TOP_RIGHT_CORNER.as_bytes()).unwrap();
+		self.draw_vertical_line(VERTICAL_WALL, 1, 2, height);
+		self.draw_vertical_line(VERTICAL_WALL, width, 2, height);
+		self.stdout.write(BOTTOM_LEFT_CORNER.as_bytes()).unwrap();
+		self.draw_horizontal_line(HORIZONTAL_WALL, width - 2);
+		self.stdout.write(BOTTOM_RIGHT_CORNER.as_bytes()).unwrap();
 		self.stdout.flush().unwrap();
 	}
 
