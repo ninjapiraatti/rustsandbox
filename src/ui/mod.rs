@@ -10,11 +10,18 @@ mod graphics {
     pub const TOP_RIGHT_CORNER: &'static str = "╗";
     pub const BOTTOM_LEFT_CORNER: &'static str = "╚";
     pub const BOTTOM_RIGHT_CORNER: &'static str = "╝";
+	pub const PLAYER: &'static str = "@";
 }
 
 use self::graphics::*;
 
-/// The UI state.
+// Player
+struct Player {
+	x: u16,
+	y: u16
+}
+
+// The UI state.
 struct UI<R, W> {
     width: usize,
     height: usize,
@@ -23,6 +30,7 @@ struct UI<R, W> {
     /// Standard output.
     stdout: W,
 	random: usize,
+	player: Player
 }
 
 impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
@@ -36,6 +44,13 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 			write!(self.stdout, "{}", style::Reset).unwrap();
             self.stdout.flush().unwrap();
 		}
+	}
+	fn clear_player(&mut self) {
+		write!(self.stdout, "{} ", cursor::Goto(self.player.x, self.player.y)).unwrap();
+	}
+
+	fn draw_player(&mut self) {
+		self.draw_character(PLAYER, self.player.x, self.player.y);
 	}
 
 	fn draw_character(&mut self, chr: &str, x: u16, y: u16) {
@@ -102,15 +117,16 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
         self.stdin.read(&mut key_bytes).unwrap();
 
         //self.rand.write_u8(key_bytes[0]);
-
+		self.clear_player();
         match key_bytes[0] {
             b'q' => return false,
-            //b'k' | b'w' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
-            //b'j' | b's' => self.draw_horizontal_line(HORIZONTAL_WALL, height),
-            //b'h' | b'a' => self.draw_horizontal_line(HORIZONTAL_WALL, random),
-            //b'l' | b'd' => self.draw_horizontal_line(HORIZONTAL_WALL, width),
+            b'k' | b'w' => self.player.y -= 1,
+            b'j' | b's' => self.player.y += 1,
+            b'h' | b'a' => self.player.x -= 1,
+            b'l' | b'd' => self.player.x += 1,
             _ => {},
         }
+		self.draw_player();
 		true
 	}
 }
@@ -125,7 +141,11 @@ fn init_ui(width: usize, height: usize, random: usize) {
 		height: height,
 		stdin: stdin,
 		stdout: stdout,
-		random: random
+		random: random,
+		player: Player {
+			x: (width / 2) as u16,
+			y: (height / 2) as u16
+		}
 	};
 	ui.reset();
 	ui.start();
