@@ -11,7 +11,9 @@ mod graphics {
     pub const BOTTOM_LEFT_CORNER: &'static str = "╚";
     pub const BOTTOM_RIGHT_CORNER: &'static str = "╝";
 	pub const PLAYER: &'static str = "@";
+	pub const FLOWER: &'static str = "x";
 }
+pub mod flower;
 
 use self::graphics::*;
 
@@ -22,7 +24,7 @@ struct Player {
 }
 
 // The UI state.
-struct UI<R, W> {
+pub struct UI<R, W> {
     width: usize,
     height: usize,
     /// Standard input.
@@ -60,6 +62,17 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
 			chr,
 			termion::color::Bg(color::Reset))
 			.unwrap();
+	}
+
+	fn draw_flower(&mut self, x: u16, y:u16) {
+		for i in 0..10 {
+			let flower = flower::draw_flower(x, y, i);
+			//println!("{} {} {} {}", flower.0, flower.1, flower.2, flower.3);
+			self.draw_character(&flower.2.to_string(), flower.0 + x, flower.1 + y);
+			if flower.3 == true {
+				return;
+			}
+		}
 	}
 
 	fn draw_horizontal_line(&mut self, chr: &str, x: u16, y: u16, width: u16) {
@@ -124,6 +137,7 @@ impl <R: Read, W: Write> UI<R, W> { // What does this declaration really do?
             b'j' | b's' => self.player.y += 1,
             b'h' | b'a' => self.player.x -= 1,
             b'l' | b'd' => self.player.x += 1,
+			b'f' => self.draw_flower(self.player.x, self.player.y),
             _ => {},
         }
 		self.draw_player();
