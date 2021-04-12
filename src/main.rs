@@ -16,5 +16,5 @@ fn main() {
 	//codewars::runall();
 	//udemy_hands_on::runall();
 	//basics::runall();
-	udemy_hands_on::udemy_ho_quicksort::run();
+	udemy_hands_on::udemy_ho_linkedlists::run();
 }
