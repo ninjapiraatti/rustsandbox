@@ -8,6 +8,7 @@ pub mod codewars_nsmallest;
 pub mod codewars_removep;
 pub mod codewars_sortbybit;
 pub mod codewars_stones;
+pub mod codewars_moviecard;
 //mod codewars_urlshortener;
 
 pub fn runall() {
@@ -21,5 +22,6 @@ pub fn runall() {
 	codewars_removep::run();
 	codewars_sortbybit::run();
 	codewars_stones::run();
+	codewars_moviecard::run();
 	//codewars_urlshortener::run(); //WIP
 }
