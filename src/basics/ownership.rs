@@ -16,10 +16,10 @@ pub fn run() {
 
     println!("{}", foo_a.x);
     println!("{}", foo_b.x);
-    // foo_b is dropped here 
+    // foo_b is dropped here
     // foo_a is dropped here
     // Drop is essentially the same as free in C done automatically. Memory is allocated on instanciation/initialization
-    
+
     // Borrowing Mutable Ownership with References
     let mut foo = Foo { x: 42 };
     let f = &mut foo;
@@ -32,12 +32,12 @@ pub fn run() {
 
     f.x = 13;
     // f is dropped here because it's no longer used after this point
-    
+
     println!("{}", foo.x);
-    
+
     // this works now because all mutable references were dropped
     foo.x = 7;
-    
+
     // move foo's ownership to a function
     do_something(foo);
 
@@ -45,7 +45,7 @@ pub fn run() {
     let mut boo = 21;
     let f = &mut boo;
     let bar = *f; // get a copy of the owner's value
-    *f = 28;      // set the reference's owner's value
+    *f = 28; // set the reference's owner's value
     println!("{}", bar);
     println!("{}", boo);
 }

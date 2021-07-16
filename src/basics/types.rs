@@ -1,4 +1,4 @@
-pub fn run () {
+pub fn run() {
     // Default is i32
     let x = 1;
     // Default is f64

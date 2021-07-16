@@ -2,8 +2,8 @@
 // 7 kyu
 
 // Your goal is to create a function dative() (Dative() in C#)
-// which returns the valid form of a valid Hungarian word w in 
-// dative case i. e. append the correct suffix nek or nak 
+// which returns the valid form of a valid Hungarian word w in
+// dative case i. e. append the correct suffix nek or nak
 // to the word w based on vowel harmony rules.
 
 #[cfg(test)]
@@ -24,9 +24,9 @@ mod tests {
             ["rossz", "rossznak"],
             ["gonosz", "gonosznak"],
             ["rög", "rögnek"],
-            ["király", "királynak"]
+            ["király", "királynak"],
         ];
-        
+
         for test in TESTS {
             let input = test[0];
             let expected = test[1];
@@ -36,10 +36,9 @@ mod tests {
     }
 }
 
-
 fn dative(word: &str) -> String {
     let mut res = String::from(word);
-    for c in word.chars().rev() { 
+    for c in word.chars().rev() {
         match c {
             'a' | 'á' | 'o' | 'ó' | 'u' | 'ú' => {
                 res.push_str("nak");
@@ -49,15 +48,13 @@ fn dative(word: &str) -> String {
                 res.push_str("nek");
                 break;
             }
-            _ => {
-
-            }
+            _ => {}
         }
     }
     res
 }
 
-pub fn run () {
+pub fn run() {
     dative("gonosz");
 }
 

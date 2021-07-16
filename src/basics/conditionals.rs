@@ -1,6 +1,6 @@
 // Pretty normal. No parenthesis
 
-pub fn run () {
+pub fn run() {
     let kylpynalle = 20;
 
     // Shorthand if

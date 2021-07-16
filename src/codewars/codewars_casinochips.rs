@@ -10,8 +10,8 @@
 // Each day you take exactly two chips of different colors and head to the casino.
 // You can choose any color, but you are not allowed to take two chips of the same color in a day.
 
-// You will be given an array representing the number of chips of each color and your 
-// task is to return the maximum number of days you can pick the chips. Each day you 
+// You will be given an array representing the number of chips of each color and your
+// task is to return the maximum number of days you can pick the chips. Each day you
 // need to take exactly two chips.
 
 #[cfg(test)]
@@ -43,7 +43,7 @@ fn solve(arr: &[u32; 3]) -> u32 {
         days += 1000;
         res.sort();
     }
-    while res[2] > 0 && res[1] > 0{
+    while res[2] > 0 && res[1] > 0 {
         res[2] -= 1;
         if res[1] > 0 {
             res[1] -= 1;
@@ -56,7 +56,7 @@ fn solve(arr: &[u32; 3]) -> u32 {
     days
 }
 
-pub fn run () {
+pub fn run() {
     solve(&[24045, 24100, 24400]);
 }
 
@@ -65,7 +65,7 @@ pub fn run () {
 fn solve(arr: &[u32; 3]) -> u32 {
     let mut chips = arr.to_vec();
     chips.sort();
-    
+
     match chips[0] + chips[1] < chips[2] {
         true => chips[0] + chips[1],
         false => (chips[0] + chips[1] + chips[2]) / 2,

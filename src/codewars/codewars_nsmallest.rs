@@ -1,8 +1,8 @@
 // https://www.codewars.com/kata/5aec1ed7de4c7f3517000079
 // 6 kyu
 
-// Your task is to write a function that does just what the title suggests 
-// (so, fair warning, be aware that you are not getting out of it just throwing 
+// Your task is to write a function that does just what the title suggests
+// (so, fair warning, be aware that you are not getting out of it just throwing
 // a lame bas sorting method there) with an array/list/vector of integers
 // and the expected number n of smallest elements to return.
 
@@ -14,19 +14,18 @@ mod tests {
 
     #[test]
     fn test_basic() {
-        assert_eq!(n_smallest(&[1,2,3,4,5],3), [1,2,3]);
-        assert_eq!(n_smallest(&[5,4,3,2,1],3), [3,2,1]);
-        assert_eq!(n_smallest(&[1,2,3,1,2],3), [1,2,1]);
-        assert_eq!(n_smallest(&[1,2,3,-4,0],3), [1,-4,0]);
-        assert_eq!(n_smallest(&[1,2,3,4,5],0), []);
-        assert_eq!(n_smallest(&[1,2,3,4,5],5), [1,2,3,4,5]);
-        assert_eq!(n_smallest(&[1,2,3,4,2],4), [1,2,3,2]);
-        assert_eq!(n_smallest(&[2,1,2,3,4,2],2), [2,1]);
-        assert_eq!(n_smallest(&[2,1,2,3,4,2],3), [2,1,2]);
-        assert_eq!(n_smallest(&[2,1,2,3,4,2],4), [2,1,2,2]);
+        assert_eq!(n_smallest(&[1, 2, 3, 4, 5], 3), [1, 2, 3]);
+        assert_eq!(n_smallest(&[5, 4, 3, 2, 1], 3), [3, 2, 1]);
+        assert_eq!(n_smallest(&[1, 2, 3, 1, 2], 3), [1, 2, 1]);
+        assert_eq!(n_smallest(&[1, 2, 3, -4, 0], 3), [1, -4, 0]);
+        assert_eq!(n_smallest(&[1, 2, 3, 4, 5], 0), []);
+        assert_eq!(n_smallest(&[1, 2, 3, 4, 5], 5), [1, 2, 3, 4, 5]);
+        assert_eq!(n_smallest(&[1, 2, 3, 4, 2], 4), [1, 2, 3, 2]);
+        assert_eq!(n_smallest(&[2, 1, 2, 3, 4, 2], 2), [2, 1]);
+        assert_eq!(n_smallest(&[2, 1, 2, 3, 4, 2], 3), [2, 1, 2]);
+        assert_eq!(n_smallest(&[2, 1, 2, 3, 4, 2], 4), [2, 1, 2, 2]);
     }
 }
-
 
 fn n_smallest(arr: &[i32], n: usize) -> Vec<i32> {
     let arrtovec = arr.to_vec();
@@ -44,7 +43,7 @@ fn n_smallest(arr: &[i32], n: usize) -> Vec<i32> {
     res
 }
 
-pub fn run () {
+pub fn run() {
     n_smallest(&[0, 1, 1, 5, 6, 8, 3, 4, 10, -5], 8);
 }
 
@@ -56,7 +55,7 @@ fn first_n_smallest(arr: &[i32], n: usize) -> Vec<i32> {
     arr.iter()
         .enumerate()
         .sorted_by_key(|(_, &c)| c)
-        .take(n)        
+        .take(n)
         .sorted_by_key(|(i, _)| *i)
         .map(|(_, &c)| c)
         .collect()

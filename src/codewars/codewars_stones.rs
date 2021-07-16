@@ -1,10 +1,10 @@
 // https://www.codewars.com/kata/5f70e4cce10f9e0001c8995a/train/rust
 // 7 kyu
 
-// There are some stones on Bob's table in a row, and each of them can be red, 
+// There are some stones on Bob's table in a row, and each of them can be red,
 // green or blue, indicated by the characters R, G, and B.
 
-// Help Bob find the minimum number of stones he needs to remove from the 
+// Help Bob find the minimum number of stones he needs to remove from the
 // table so that the stones in each pair of adjacent stones have different colours.
 
 #[cfg(test)]
@@ -19,21 +19,19 @@ mod tests {
     }
 }
 
-
-
 fn stones_to_remove(stones: &str) -> usize {
     let mut sum = 0;
     let mut temp = ' ';
     for c in stones.chars() {
         if c == temp {
             sum += 1;
-        } 
+        }
         temp = c;
     }
     sum
 }
 
-pub fn run () {
+pub fn run() {
     stones_to_remove("RRGRRG");
 }
 

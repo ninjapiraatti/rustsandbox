@@ -24,7 +24,7 @@ mod tests {
         assert_eq!(what_century("1234"), "13th");
         assert_eq!(what_century("1023"), "11th");
         assert_eq!(what_century("2000"), "20th");
-        assert_eq!(what_century("3210"), "33rd");        
+        assert_eq!(what_century("3210"), "33rd");
     }
 }
 
@@ -47,7 +47,7 @@ fn what_century(year: &str) -> String {
     result
 }
 
-pub fn run () {
+pub fn run() {
     what_century("1119");
     what_century("2000");
     what_century("9900");
@@ -72,7 +72,7 @@ fn what_century(year: &str) -> String {
             _ => "th",
         }
     };
-    
+
     format!("{}{}", century, suffix)
 }
 

@@ -1,6 +1,6 @@
 // Vectors are resizable arrays
 
-pub fn run () {
+pub fn run() {
     let mut numbers: Vec<i32> = vec![1, 4, 55, 42, 0];
     println!("{:?}", numbers);
 
@@ -9,7 +9,10 @@ pub fn run () {
     println!("{:?}", numbers);
 
     // Vectors are stack allocated
-    println!("This array takes {} bytes of memory", std::mem::size_of_val(&numbers));
+    println!(
+        "This array takes {} bytes of memory",
+        std::mem::size_of_val(&numbers)
+    );
 
     // Pop off last value
     numbers.pop();
@@ -25,7 +28,7 @@ pub fn run () {
 
     // Loop and mutate values
     for x in numbers.iter_mut() {
-        *x *=4;
+        *x *= 4;
         println!("{}", x);
     }
 }

@@ -1,6 +1,6 @@
 // Pretty normal. No parenthesis
 
-pub fn run () {
+pub fn run() {
     let res;
     res = helloworld("moi", 4);
     println!("{}", res);

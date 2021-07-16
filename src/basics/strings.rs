@@ -1,7 +1,7 @@
 // Primitive str is immutable, fixed-length string somewhere in memory.
 // String is a growable, heap-allocated data structure. Use when you need to modify or own string data.
 
-pub fn run () {
+pub fn run() {
     // str
     let hello = "Hello";
 
@@ -17,7 +17,7 @@ pub fn run () {
 
     // Contain aka. strstr
     println!("Does crab contain 'rab'? {}", bye.contains("rab"));
-    
+
     // Loop through string by whitespace
     for word in "asb asn thn ksm tgh".split_whitespace() {
         println!("{} ", word);
@@ -35,8 +35,10 @@ pub fn run () {
     let a: &'static str = "hi 🦀";
     println!("{} {}", a, a.len());
 
-    println!("helloooo
-    world"); // notice that the spacing before w is ignored
+    println!(
+        "helloooo
+    world"
+    ); // notice that the spacing before w is ignored
 
     let html: &'static str = r#"
     <div class="advice">
@@ -53,7 +55,7 @@ pub fn run () {
     let helloworld = ["hello", " ", "world", "!"].concat();
     let abc = ["a", "b", "c"].join(",");
     println!("{}", helloworld);
-    println!("{}",abc);
+    println!("{}", abc);
 
     // Strings are different from C. Because of unicode, you can't just jump around
     // with indexes. Use something along these lines:
@@ -61,14 +63,14 @@ pub fn run () {
     let tempchar = k.chars().nth(3).unwrap();
     println!("Character in index 3 is {}", tempchar);
 
-	// You can iterate characters with char_indices
-	fn string_find_a(s: &str) -> &str {
-		for (n, x) in s.char_indices() {
-			if x == 'a' {
-				return &s[n..];
-			}
-		}
-		s
-	}
-	println!("{:?}", string_find_a("kylpynalle"));
+    // You can iterate characters with char_indices
+    fn string_find_a(s: &str) -> &str {
+        for (n, x) in s.char_indices() {
+            if x == 'a' {
+                return &s[n..];
+            }
+        }
+        s
+    }
+    println!("{:?}", string_find_a("kylpynalle"));
 }

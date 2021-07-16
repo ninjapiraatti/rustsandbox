@@ -1,6 +1,6 @@
 // You get a list of integers, and you have to write a function
-// mirror that returns the "mirror" (or symmetric) version of 
-// this list: i.e. the middle element is the greatest, then the 
+// mirror that returns the "mirror" (or symmetric) version of
+// this list: i.e. the middle element is the greatest, then the
 // next greatest on both sides, the the next greatest, and so on...
 
 #[cfg(test)]
@@ -13,7 +13,10 @@ mod tests {
         assert_eq!(mirror(&[1]), &[1]);
         assert_eq!(mirror(&[2, 1]), &[1, 2, 1]);
         assert_eq!(mirror(&[2, 3, 1]), &[1, 2, 3, 2, 1]);
-        assert_eq!(mirror(&[-8, 42, 18, 0, -16]), &[-16, -8, 0, 18, 42, 18, 0, -8, -16]);
+        assert_eq!(
+            mirror(&[-8, 42, 18, 0, -16]),
+            &[-16, -8, 0, 18, 42, 18, 0, -8, -16]
+        );
     }
 }
 
@@ -27,7 +30,7 @@ fn mirror(list: &[i32]) -> Vec<i32> {
     res
 }
 
-pub fn run () {
+pub fn run() {
     mirror(&[2, 3, 1, 9, 0]);
 }
 

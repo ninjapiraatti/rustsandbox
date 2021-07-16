@@ -5,7 +5,7 @@ enum Movement {
     Up,
     Down,
     Left,
-    Right
+    Right,
 }
 
 fn move_avatar(m: Movement) {
@@ -14,19 +14,19 @@ fn move_avatar(m: Movement) {
         Movement::Up => println!("Up"),
         Movement::Down => println!("Down"),
         Movement::Left => println!("Left"),
-        Movement::Right => println!("Right")
+        Movement::Right => println!("Right"),
     }
 }
 
-fn do_something_that_might_fail(i:i32) -> Result<f32,String> {
+fn do_something_that_might_fail(i: i32) -> Result<f32, String> {
     if i == 42 {
         Ok(13.0)
     } else {
-        Err(String::from("this is not the right number"))   
+        Err(String::from("this is not the right number"))
     }
 }
 
-pub fn run () -> Result<(), String> {
+pub fn run() -> Result<(), String> {
     let avatar1 = Movement::Up;
     let avatar2 = Movement::Down;
     let avatar3 = Movement::Left;
