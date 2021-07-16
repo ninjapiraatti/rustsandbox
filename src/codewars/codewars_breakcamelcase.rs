@@ -14,13 +14,14 @@ mod tests {
 }
 
 fn break_camelcase(s: &str) -> String {
-	let mut str = String::from(s);
-    for mut c in str.chars() { 
-		c.make_ascii_uppercase();
-		println!("{:?}", c);
+	let mut result = String::with_capacity(s.len());
+	let mut schars = s.chars();
+    for c in schars { 
+		result.push(c.to_ascii_uppercase());
+		//println!("{:?}", c);
 	}
-	println!("{:?}", str);
-	str
+	println!("{:?}", result);
+	result
 }
 
 pub fn run() {
