@@ -14,13 +14,16 @@ mod tests {
 }
 
 fn break_camelcase(s: &str) -> String {
-	let mut result = String::with_capacity(s.len());
+	let mut result = String::new();
 	let mut schars = s.chars();
     for c in schars { 
-		result.push(c.to_ascii_uppercase());
-		//println!("{:?}", c);
+		if c.is_ascii_uppercase() {
+			result.push(' ');
+			result.push(c);
+		} else {
+			result.push(c);
+		}
 	}
-	println!("{:?}", result);
 	result
 }
 
@@ -29,5 +32,22 @@ pub fn run() {
 }
 
 /* CODEWARS SOLUTIONS
+
+fn solution(s: &str) -> String {
+    let mut res = String::new();
+    for c in s.chars() {
+        if c.is_uppercase() {
+            res.push(' ');
+        }
+        res.push(c);
+    }
+    res
+}
+
+fn solution(s: &str) -> String {
+    s.chars()
+        .flat_map(|c| if c.is_ascii_uppercase() { vec![ ' ', c ] } else { vec![ c ] })
+        .collect()
+}
 
 */
