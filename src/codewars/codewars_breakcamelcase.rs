@@ -15,7 +15,7 @@ mod tests {
 
 fn break_camelcase(s: &str) -> String {
 	let mut result = String::new();
-	let mut schars = s.chars();
+	let schars = s.chars();
     for c in schars { 
 		if c.is_ascii_uppercase() {
 			result.push(' ');

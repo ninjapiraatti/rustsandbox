@@ -58,13 +58,13 @@ pub fn run() {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    //use super::*;
 
     #[test]
     fn basic() {
         //let mut v1 = vec![1, 6, 4, 99, 0, -1, 7];
-        let mut v2 = vec![1, 6, 4, 99, 0, -1, 7];
-        let mut v2_sorted = quick_sort(&mut v2);
+        //let mut v2 = vec![1, 6, 4, 99, 0, -1, 7];
+        //let v2_sorted = quick_sort(&mut v2);
         let v2_correct = vec![1, 2];
         //let mut v3 = vec![1, 6, 4, 99, 0, -1, 7];
         //let mut v4 = vec![1, 6, 4, 99, 0, -1, 7];

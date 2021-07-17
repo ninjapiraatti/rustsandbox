@@ -10,8 +10,8 @@ pub mod udemy_hands_on;
 // There are also many activities like mlem, blep, boop, bave, derp,
 
 fn main() {
-    let nbr = rng::rng(100);
-    println!("{}", nbr);
+    //let nbr = rng::rng(100);
+    //println!("{}", nbr);
     codewars::runall();
     //udemy_hands_on::runall();
     //basics::runall();

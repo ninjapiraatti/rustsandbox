@@ -39,9 +39,17 @@ mod example_tests {
 }
 
 mod isc {
+    fn build_square(size: usize) -> Vec<char> {
+        let mut square = Vec::with_capacity(size*size);
+        square
+        //if square.len() == size {
+    }
+
     pub fn encode(s: &str) -> String {
         let res = String::from(s);
-        println!("{:?}", res.len());
+        let square_side = (res.len() as f64).sqrt().ceil() as i32;
+        let mut square = build_square(res.len());
+        println!("{:?}", square_side);
         res
     }
     
@@ -53,7 +61,7 @@ mod isc {
 }
 
 pub fn run () {
-    isc::encode("Lorem ipsum dolor sit amet");
+    isc::encode("Romani_Ite>Domum");
 }
 
 /* CODEWARS GOOD SOLUTIONS
