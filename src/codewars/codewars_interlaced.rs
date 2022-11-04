@@ -40,7 +40,7 @@ mod example_tests {
 	#[test]
 	fn example_test_3() {
 		let example_3a = "Lorem>ipsum>dolor>sitamet>consectetur>adipiscing!";
-		let example_3b = "Lmsdrtoetntr>>idicpsuoug!ieo>csni>>poatecqemslmir";
+		let example_3b = "Lmsdrtoetntr>>idicpsuoug!ieo>csni>>poatecaemslmir";
 		run_test(example_3a,example_3b);
 	}
 
@@ -55,12 +55,6 @@ mod example_tests {
 mod isc {
     use std::thread::current;
 
-	fn build_square(size: usize) -> Vec<char> {
-		let mut square = Vec::with_capacity(size*size);
-		square
-		//if square.len() == size {
-	}
-
 	fn get_current_limit_and_multiplier(side: i32, i: i32) -> (i32, i32, i32) {
 		let number_of_levels = ((side as f64 / 2.0) as f64).ceil() as usize;
 		let mut limit = (side * 3) + (side - 4);
@@ -70,50 +64,29 @@ mod isc {
 			if i >= limit {
 				plimit = limit;
 				let offset = ((side - lvl as i32 * 2) * 3) + ((side - lvl as i32 * 2) - 4);
-				//println!("{:?}{:?}", limit, offset);
 				limit += offset;
 				multiplier += 1;
 			}
 		}
-		// if i >= limit {
-		// 	let offset = ((side - lvl as i32 * 2) * 3) + ((side - lvl as i32 * 2) - 4);
-		// 	println!("{:?}{:?}", limit, offset);
-		// 	limit += offset;
-		// 	multiplier += lvl as i32;
-		// 	return (limit, multiplier);
-		// }
 		return (limit, plimit, multiplier);
 	}
 
-	fn get_iterator(climit: i32, limit: i32, i: i32, current_set: i32, plimit: i32) -> i32 {
-		let n = climit - 8;
+	fn get_iterator(limit: i32, i: i32, plimit: i32) -> i32 {
 		if i >= limit {
-			// return  (i - climit) / 4;
 			return (i - plimit) / 4;
 		}
 		return i / 4;
 	}
 
-	fn calculate_index(current_set: i32, current_char: i32, side: i32, i: i32) -> i32 {
+	fn calculate_index(current_char: i32, side: i32, i: i32) -> i32 {
 		let limit = (side * 3) + (side - 4); 
 		let (current_limit, plimit, multiplier)= get_current_limit_and_multiplier(side, i);
-		//let multiplier = get_multiplier(i, current_limit);
-		println!("\tcurrent multiplier {:?}, limit {:?}, plimit {:?}, climit {:?}, side: {:?}", multiplier, limit, plimit, current_limit, side);
-		let foo = 4 * multiplier; 
-		let bar = current_set - foo;
-		let iterator = get_iterator(current_limit, limit, i, current_set, plimit);
-		//println!("\tfoo:{:?}, bar: {:?}", foo, current_set);
-		println!("\tI: {:?}, current multiplier {:?}, iterator: {:?}", i, multiplier, iterator);
-		//println!("Current set: {:?} Current char: {:?} Current multiplier: {:?} I: {:?}", current_set, current_char, multiplier, i);
+		let iterator = get_iterator(limit, i, plimit);
 		match current_char {
-			//0 => return iterator + ((side * multiplier) + multiplier),
 			0 => return ((side + 1) * multiplier) + iterator,
-			//1 => return (((iterator * side) + side) - 1) + (multiplier * 4),
 			1 => return ((iterator + 1) * side - 1) + (multiplier * (side - 1)),
 			2 => return ((side * side - 1) - iterator) - ((side + 1) * multiplier),
-			//2 => return (side * side - 1 - current_set) - (multiplier * (side + side / 2)),
 			3 => return (side * side - ((iterator + 1) * side)) - (multiplier * (side - 1)),
-			//3 => return (side * side - ((current_set + 1) * side)) - (multiplier * (side - 1)),
 			_ => return 0,
 		};
 	}
@@ -124,20 +97,11 @@ mod isc {
 		let mut indices = vec![0; str.len()];
 		let side = (res.len() as f64).sqrt().ceil() as usize;
 		for i in 0..str.len() {
-			let current_set = i / 4;
 			let current_char = i % 4;
-			let j = calculate_index(current_set as i32, current_char as i32, side as i32, i as i32);
-			//println!("{:?}, {:?}", j, str.chars().nth(i).unwrap());
+			let j = calculate_index(current_char as i32, side as i32, i as i32);
 			res[j as usize] = str.chars().nth(i).unwrap();
 			indices[i] = j;
-			//res.push(str.chars().nth(i).unwrap());
 		}
-		println!("{:?}", indices);
-		println!("{:?}", res);
-		//str
-		// let square_side = (res.len() as f64).sqrt().ceil() as i32;
-		// let mut square = build_square(res.len());
-		// println!("{:?}", square_side);
 		let s: String = res.into_iter().collect();
 		s
 	}
