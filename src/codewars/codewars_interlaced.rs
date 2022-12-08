@@ -20,7 +20,7 @@ mod example_tests {
 	
 	fn run_test(s1:&str, s2:&str){
 		assert_eq!(&isc::encode(s1),s2);
-		//assert_eq!(&isc::decode(s2),s1);
+		assert_eq!(&isc::decode(s2),s1);
 	}
 	
 	#[test]
@@ -96,27 +96,37 @@ mod isc {
 		let mut indices = vec![0; str.len()];
 		let side = (str.len() as f64).sqrt().ceil() as usize;
 		let mut res = vec![' '; side * side];
-		println!("{:?}\n{:?}", res.len(), str.len());
 		for i in 0..str.len() {
 			let current_char = i % 4;
 			let j = calculate_index(current_char as i32, side as i32, i as i32);
 			res[j as usize] = str.chars().nth(i).unwrap();
 			indices[i] = j;
 		}
-		let s: String = res.into_iter().collect();
-		s
+		let st: String = res.into_iter().collect();
+		println!("{:?}", st);
+		st
 	}
 	
 	pub fn decode(s: &str) -> String {
-		let res = String::from(s);
-		//println!("{:?}", res);
-		res
+		let str = String::from(s);
+		let side = (str.len() as f64).sqrt().ceil() as usize;
+		let mut res = vec![' '; side * side];
+		for i in 0..str.len() {
+			let current_char = i % 4;
+			let j = calculate_index(current_char as i32, side as i32, i as i32);
+			res[i as usize] = str.chars().nth(j as usize).unwrap();
+		}
+
+		let st: String = res.into_iter().collect();
+		let tr: &str = &st[..];
+		let res = tr.trim_end();
+		return res.to_string();
 	}
 }
 
 pub fn run () {
 	isc::encode("Lorem>ipsum>dolor>sitamet>consectetur>adipiscing!");
-	//isc::encode("Romani_Ite>Domum");
+	isc::decode("Lmsdrtoetntr>>idicpsuoug!ieo>csni>>poatecaemslmir");
 }
 
 /* CODEWARS GOOD SOLUTIONS
