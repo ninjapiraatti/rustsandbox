@@ -19,6 +19,31 @@ pub mod types;
 pub mod variables;
 pub mod vectors;
 
+pub fn get_programs() -> Vec<(&'static str, fn())> {
+    vec![
+        ("arrays", arrays::run),
+        ("boxx", boxx::run),
+        ("cli", cli::run),
+        ("collectioon", collectioon::run),
+        ("conditionals", conditionals::run),
+        //("enums", enums::run),
+        ("functions", functions::run),
+        ("generics", generics::run),
+        ("mmatch", mmatch::run),
+        ("oopish", oopish::run),
+        ("ownership", ownership::run),
+        ("pointers", pointers::run),
+        ("print", print::run),
+        ("seacreature", seacreature::run),
+        ("strings", strings::run),
+        ("structs", structs::run),
+        ("tuples", tuples::run),
+        ("types", types::run),
+        ("variables", variables::run),
+        ("vectors", vectors::run),
+    ]
+}
+
 pub fn runall() {
     arrays::run();
     boxx::run();
