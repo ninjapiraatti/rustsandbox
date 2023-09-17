@@ -112,7 +112,11 @@ pub fn run() {
     dblist1.push_front(10);
     dblist1.push_front(42);
     println!("{:?}", list);
-    //println!("{:?}\n\n{:?}", dblist1, list.data.unwrap());
+    if let Some(ref first_node) = dblist1.first {
+        println!("First node data: {:?}", first_node.borrow().data);
+    } else {
+        println!("The list is empty");
+    }
 }
 
 #[cfg(test)]
