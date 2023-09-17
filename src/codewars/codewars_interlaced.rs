@@ -53,9 +53,7 @@ mod example_tests {
 }
 
 mod isc {
-    use std::thread::current;
-
-	fn get_current_limit_and_multiplier(side: i32, i: i32) -> (i32, i32, i32) {
+	fn get_current_limit_and_multiplier(side: i32, i: i32) -> (i32, i32) {
 		let number_of_levels = ((side as f64 / 2.0) as f64).ceil() as usize;
 		let mut limit = (side * 3) + (side - 4);
 		let mut plimit = 0;
@@ -68,7 +66,7 @@ mod isc {
 				multiplier += 1;
 			}
 		}
-		return (limit, plimit, multiplier);
+		return (plimit, multiplier);
 	}
 
 	fn get_iterator(limit: i32, i: i32, plimit: i32) -> i32 {
@@ -80,7 +78,7 @@ mod isc {
 
 	fn calculate_index(current_char: i32, side: i32, i: i32) -> i32 {
 		let limit = (side * 3) + (side - 4); 
-		let (current_limit, plimit, multiplier)= get_current_limit_and_multiplier(side, i);
+		let (plimit, multiplier)= get_current_limit_and_multiplier(side, i);
 		let iterator = get_iterator(limit, i, plimit);
 		match current_char {
 			0 => return ((side + 1) * multiplier) + iterator,

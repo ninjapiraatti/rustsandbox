@@ -4,24 +4,13 @@ pub mod rng;
 pub mod udemy_hands_on;
 
 use clap::{arg, Command};
-use std::str::{self, Bytes};
+use std::str::{self};
 
 // There are many aninmals like birb, formal chikcen, disco turkey, treefloof, nope rope, sea flap flap, murder log, wizard cow,
 // flopwop, danger zebra, stab rabbit, fart squirrel, blub blub doggo, trouble bubble, aquatic sock puppet, water pistachio,
 // cheese boi, noodle bear, bunno, murder torpedo, fashion chikcen
 
 // There are also many activities like mlem, blep, boop, bave, derp,
-
-/*
-fn main() {
-    //let nbr = rng::rng(100);
-    //println!("{}", nbr);
-    codewars::runall();
-    //udemy_hands_on::runall();
-    //basics::runall();
-    //udemy_hands_on::udemy_ho_linkedlists::run();
-}
-*/
 
 
 fn main() {
@@ -33,15 +22,6 @@ fn main() {
         .arg(arg!([category_number] "Category as number").required(true))
         .arg(arg!([program_number] "Program as number").required(true))
         .get_matches();
-    /*
-    if let Some(program_number) = matches.get_one::<String>("program_number") {
-        let raw_number = program_number.as_bytes();
-        //let raw_data = b"123132";
-        //let the_bytes = &raw_data[1..4];
-        let the_string = str::from_utf8(raw_number).expect("not UTF-8");
-        let the_number: usize = the_string.parse().expect("not a number");
-        run_program(the_number);
-    } */
     if let Some(category_number) = matches.get_one::<String>("category_number") {
         if let Some(program_number) = matches.get_one::<String>("program_number") {
             if let Ok(category_idx) = category_number.parse::<usize>() {
@@ -72,18 +52,6 @@ fn list_programs() -> String {
     let program_list_str = program_list.join("\n");
     format!("Available programs:\n{}", program_list_str)
 }
-
-/*
-fn run_program(program_number: usize) {
-    let programs = get_categories();
-    if program_number < programs.len() {
-        (programs[program_number].1)();
-    } else {
-        eprintln!("Unknown program number: {}", program_number);
-    }
-}
-*/
-
 
 fn run_program(category_idx: usize, program_idx: usize) {
     let categories = get_categories();

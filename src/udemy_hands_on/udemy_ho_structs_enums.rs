@@ -18,8 +18,8 @@ pub enum Color {
 impl Aninmal {
     pub fn print(self) -> String {
         format!(
-            "name = {}, toes = {}, puppers = {}",
-            self.name, self.toes, self.puppers
+            "name = {}, toes = {}, puppers = {}, color = {:?}",
+            self.name, self.toes, self.puppers, self.color
         )
     }
 }

@@ -112,7 +112,7 @@ pub fn run() {
     dblist1.push_front(10);
     dblist1.push_front(42);
     println!("{:?}", list);
-    println!("{:?}", dblist1);
+    //println!("{:?}\n\n{:?}", dblist1, list.data.unwrap());
 }
 
 #[cfg(test)]
