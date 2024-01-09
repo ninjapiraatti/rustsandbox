@@ -14,17 +14,17 @@ mod tests {
 }
 
 fn break_camelcase(s: &str) -> String {
-	let mut result = String::new();
-	let schars = s.chars();
-    for c in schars { 
-		if c.is_ascii_uppercase() {
-			result.push(' ');
-			result.push(c);
-		} else {
-			result.push(c);
-		}
-	}
-	result
+    let mut result = String::new();
+    let schars = s.chars();
+    for c in schars {
+        if c.is_ascii_uppercase() {
+            result.push(' ');
+            result.push(c);
+        } else {
+            result.push(c);
+        }
+    }
+    result
 }
 
 pub fn run() {

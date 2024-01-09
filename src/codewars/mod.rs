@@ -1,3 +1,4 @@
+pub mod codewars_breakcamelcase;
 pub mod codewars_casinochips;
 pub mod codewars_century;
 pub mod codewars_elevator;
@@ -7,9 +8,9 @@ pub mod codewars_mirror;
 pub mod codewars_moviecard;
 pub mod codewars_nsmallest;
 pub mod codewars_removep;
+pub mod codewars_sort_binary_by_levels;
 pub mod codewars_sortbybit;
 pub mod codewars_stones;
-pub mod codewars_breakcamelcase;
 //mod codewars_urlshortener;
 
 pub fn get_programs() -> Vec<(&'static str, fn())> {
@@ -26,6 +27,10 @@ pub fn get_programs() -> Vec<(&'static str, fn())> {
         ("codewars_sortbybit", codewars_sortbybit::run),
         ("codewars_stones", codewars_stones::run),
         ("codewars_breakcamelcase", codewars_breakcamelcase::run),
+        (
+            "codewars_sort_binary_by_levels",
+            codewars_sort_binary_by_levels::run,
+        ),
     ]
 }
 
@@ -35,12 +40,12 @@ pub fn runall() {
     //codewars_elevator::run();
     //codewars_hungarian::run();
     codewars_interlaced::run(); // WIP
-    //codewars_mirror::run();
-    //codewars_nsmallest::run();
-    //codewars_removep::run();
-    //codewars_sortbybit::run();
-    //codewars_stones::run();
-    //codewars_moviecard::run();
-    //codewars_urlshortener::run(); //WIP
-    //codewars_breakcamelcase::run();
+                                //codewars_mirror::run();
+                                //codewars_nsmallest::run();
+                                //codewars_removep::run();
+                                //codewars_sortbybit::run();
+                                //codewars_stones::run();
+                                //codewars_moviecard::run();
+                                //codewars_urlshortener::run(); //WIP
+                                //codewars_breakcamelcase::run();
 }

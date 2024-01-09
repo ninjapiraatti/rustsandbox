@@ -12,7 +12,6 @@ use std::str::{self};
 
 // There are also many activities like mlem, blep, boop, bave, derp,
 
-
 fn main() {
     let program_list = list_programs();
     let matches = Command::new("Rust Snippets")
@@ -38,7 +37,7 @@ fn main() {
         }
     } else {
         eprintln!("Category number not provided");
-    }    
+    }
 }
 
 fn list_programs() -> String {
@@ -48,7 +47,7 @@ fn list_programs() -> String {
         .enumerate()
         .map(|(i, program)| format!("{}: {}", i, program.0))
         .collect();
-    
+
     let program_list_str = program_list.join("\n");
     format!("Available programs:\n{}", program_list_str)
 }
@@ -60,7 +59,10 @@ fn run_program(category_idx: usize, program_idx: usize) {
         if let Some((_, program_fn)) = programs.get(program_idx) {
             program_fn();
         } else {
-            eprintln!("Program index '{}' not found in category index '{}'", program_idx, category_idx);
+            eprintln!(
+                "Program index '{}' not found in category index '{}'",
+                program_idx, category_idx
+            );
         }
     } else {
         eprintln!("Category index '{}' not found", category_idx);
@@ -76,4 +78,3 @@ fn get_categories() -> Vec<(&'static str, ProgramGetter)> {
         ("Udemy Hands On", udemy_hands_on::get_programs),
     ]
 }
-

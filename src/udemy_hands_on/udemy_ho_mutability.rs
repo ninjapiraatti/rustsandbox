@@ -30,5 +30,8 @@ pub fn run() {
     let tigger = treefloof.clone();
     treefloof.name.push_str(" Tabernackle");
     println!("{:?}, {:?}", treefloof, tigger);
-    println!("{:?}, {:?}, {:?}", treefloof.isfloof, treefloof.noms.x, treefloof.noms.y);
+    println!(
+        "{:?}, {:?}, {:?}",
+        treefloof.isfloof, treefloof.noms.x, treefloof.noms.y
+    );
 }
