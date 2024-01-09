@@ -85,12 +85,32 @@ mod sample_tests {
 }
 
 fn tree_by_levels(root: &Node) -> Vec<u32> {
-    println!("{root:?}");
-    [1, 2].to_vec()
+    let mut queue = std::collections::VecDeque::new();
+    let mut result = Vec::new();
+
+    // Start with the root node
+    queue.push_back(root);
+    while let Some(node) = queue.pop_front() {
+        // Add the value of the current node to the result vector
+        result.push(node.value);
+        // Add left child to queue if it exists
+        if let Some(left) = &node.left {
+            queue.push_back(left);
+        }
+
+        // Add right child to queue if it exists
+        if let Some(right) = &node.right {
+            queue.push_back(right);
+        }
+    }
+    result
 }
 
 pub fn run() {
-    tree_by_levels(&Node::new(42));
+    let root = Node::new(1)
+            .left(Node::new(2).left(Node::new(4)).right(Node::new(5)))
+            .right(Node::new(3).left(Node::new(6)));
+    tree_by_levels(&root);
 }
 
 /* CODEWARS GOOD SOLUTIONS
