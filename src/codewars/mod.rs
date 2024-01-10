@@ -11,6 +11,7 @@ pub mod codewars_removep;
 pub mod codewars_sort_binary_by_levels;
 pub mod codewars_sortbybit;
 pub mod codewars_stones;
+pub mod codewars_how_many_numbers;
 //mod codewars_urlshortener;
 
 pub fn get_programs() -> Vec<(&'static str, fn())> {
@@ -31,6 +32,7 @@ pub fn get_programs() -> Vec<(&'static str, fn())> {
             "codewars_sort_binary_by_levels",
             codewars_sort_binary_by_levels::run,
         ),
+        ("codewars_how_many_numbers", codewars_how_many_numbers::run),
     ]
 }
 
