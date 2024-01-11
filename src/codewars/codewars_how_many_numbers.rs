@@ -74,38 +74,84 @@ fn find_lowest_valid_number(sum: u8, digs: u8) -> Option<Vec<i32>> {
             return None;
         }
     }
-    println!("{:?}", num);
+    //println!("{:?}", num);
     return Some(num);
 }
 
 fn generate_numbers(lowest: Vec<i32>) -> Vec<u64> {
     let mut numbers: Vec<u64> = Vec::new();
+    let mut base_string = lowest;
+    let mut i = base_string.len() - 1;
+    let mut strings: Vec<Vec<i32>> = Vec::new();
+    let mut j = 1;
+    let mut mutated = false;
+
+    //println!("Starting loop with {:?}", base_string);
+    while i > 0 {
+        while j <= i && base_string[i] - base_string[i - j] > 1 {
+            base_string[i - j] += 1;
+            base_string[i] -= 1;
+            let num = vec_to_u64(&base_string);
+            if base_string[(i - j) + 1] >= base_string[i - j] {
+                //println!("Saving {:?}", num);
+                strings.push(base_string.clone());
+                numbers.push(num);
+                mutated = true;
+            }
+            if base_string[i] <= base_string[i -j] {
+                break
+            }
+            j += 1;
+        }
+        i -= 1;
+    }
+    if mutated == false {
+        return numbers;
+    }
+    for num in strings {
+        let new_numbers = generate_numbers(num);
+        numbers.extend(new_numbers);
+    }
+    //println!("Returning {:?}", numbers);
+    return numbers;
+    /*
+    let mut numbers: Vec<u64> = Vec::new();
     let mut string = lowest;
-    numbers.push(vec_to_u64(&string));
+    //numbers.push(vec_to_u64(&string));
     let i = string.len() - 1;
     let mut finished = false;
     while !finished {
-        let mut mutated = false;
         let mut j = i;
+        let mut temp_string = string.clone();
+        let mut k = j - 1;
         while j > 0 {
-            if j < i && string[j + 1] - string[j] > 1 {
-                let mut temp_string = string.clone();
-                //println!("string before and index: {:?} | {:?}", temp_string, j);
-                temp_string[j] += 1;
-                temp_string[j + 1] -= 1;
-                mutated = true;
+            while j > 0 && temp_string[j] - temp_string[k] > 1 {
+                let prev_string = temp_string.clone();
+                println!("\n\nSTART: temp_string: {:?} \nprev_string: {:?} \nj: {:?} | k: {:?}", temp_string, prev_string, j, k);
+                temp_string[k] += 1;
+                temp_string[j] -= 1;
                 //println!("temp_string is now: {:?}", temp_string);
-                numbers.push(vec_to_u64(&temp_string));
+                let num = vec_to_u64(&temp_string);
+                println!("\n\n{:?} | {:?}", num, numbers);
+                if temp_string[j] - temp_string[k] < 2 && k > 0{
+                    println!("\n\nLast iteration!");
+                    println!("saving: {:?}", temp_string);
+                    numbers.push(vec_to_u64(&temp_string));
+                    k -= 1;
+                    j -= 1;
+                    temp_string = prev_string.clone();
+                } else {
+                    println!("saving: {:?}", temp_string);
+                    numbers.push(vec_to_u64(&temp_string));
+                }
+                println!("\n\nEND: temp_string: {:?} \nprev_string: {:?} \nj: {:?} | k: {:?}", temp_string, prev_string, j, k);
             }
-            if string[j] - string[j - 1] > 1 {
-                string[j - 1] += 1;
-                string[j] -= 1;
-                mutated = true;
-                //println!("string is now: {:?}", string);
-                numbers.push(vec_to_u64(&string));
-            }
-            println!("string is now: {:?}", string);
+            /*
             j -= 1;
+            if j > 0 {
+                k = j - 1;
+            }*/
+            //println!("string is now: {:?}", string);
             /*
             if mutated {
                 j = i;
@@ -115,11 +161,10 @@ fn generate_numbers(lowest: Vec<i32>) -> Vec<u64> {
             }
             */
         }
-        if mutated == false {
-            finished = true;
-        }
+        finished = true;
     }
     return numbers;
+    */
 }
 
 fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
@@ -127,9 +172,6 @@ fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
     if sum_dig < 2 {
         return None;
     }
-    // Still too inefficient. Instead:
-    // 1. find lowest matching
-    // 2. disperse that until done
     if let Some(lowest) = find_lowest_valid_number(sum_dig, digs) {
         numbers = generate_numbers(lowest);
     } else {
@@ -137,15 +179,20 @@ fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
     }
     numbers.sort_unstable();
     numbers.dedup();
-    println!("{:?}", numbers.len());
     let count = numbers.len();
+    println!("{:?} | {:?}", numbers, count);
     let min = *numbers.first().unwrap();
     let max = *numbers.last().unwrap();
     Some((count, min, max))
 }
 
 pub fn run () {
-    find_all(35, 6);
+    //find_all(10, 3);
+    //find_all(27, 3);
+    //find_all(84, 4);
+    //find_all(35, 6);
+    //find_all(77, 11);
+    find_all(16, 4);
 }
 
 /* CODEWARS SOLUTIONS
