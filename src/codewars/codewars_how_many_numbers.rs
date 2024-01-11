@@ -32,111 +32,112 @@ mod tests {
     }
 }
 
-/*
-fn increase_numbers(mut i: i32, mut lowest_digit: i32) -> (i32, i32) {
-    let mut n = i;
-    let mut last_digit = 0;
-    while n > 0 {
-        current_digit = n % 10; // Add the last digit to sum
-        n /= 10; // Remove the last digit
+fn vec_to_u64(vec: &Vec<i32>) -> u64 {
+    let mut result: u64 = 0;
+    for &digit in vec {
+        result = result * 10 + digit as u64;
     }
-
-    i += 1;
-    return (i, lowest_digit);
-}
-*/
-
-/*
-fn check_and_add_number(i: i32, sum_dig: u8) -> bool {
-    let mut n = i;
-    let mut sum = 0;
-    let mut lowest_hi_digit = -1;
-    while n > 0 {
-        let current_digit: i32;
-        if n >= 10 {
-            current_digit = n % 10;
-        } else {
-            current_digit = n;
-        }
-        if current_digit > lowest_hi_digit && lowest_hi_digit != -1 {
-            return false;
-        }
-        lowest_hi_digit = current_digit;
-        sum += current_digit; // Add the last digit to sum
-        n /= 10; // Remove the last digit
-    }
-    if sum == sum_dig as i32 {
-        return true
-    }
-    return false;
-}
-*/
-
-fn check_and_add_number(i: u32, sum_dig: u8) -> bool {
-    let mut n = i;
-    let mut sum = 0;
-    let mut lowest_hi_digit = 10;  // Start higher than any digit
-
-    while n > 0 {
-        let current_digit = n % 10;
-        if current_digit > lowest_hi_digit {
-            return false;
-        }
-        lowest_hi_digit = current_digit;
-        sum += current_digit;
-        n /= 10;
-    }
-
-    if sum == sum_dig as u32 {
-        return true;
-    } else {
-        return false;
-    }
+    result
 }
 
-fn create_numbers(sum_dig: u8, digs: u8) -> Vec<u64>{
-    let mut numbers = Vec::new();
-    let mut stack = Vec::new();
+fn find_lowest_valid_number(sum: u8, digs: u8) -> Option<Vec<i32>> {
+    let mut num = vec![0; digs as usize];  // Vector to store digits of the number
 
-    // Initialize stack
-    for first_digit in 1..=9 {
-        if first_digit <= sum_dig {
-            stack.push((first_digit, first_digit as u64, 1));
+    // Initialize the smallest number
+    let mut remainder = sum as i32;
+    let mut end_index = 0;
+    for i in 0..digs as usize {
+        num[i] = 1;
+        remainder -= 1;
+        end_index += 1;
+    }
+    end_index -= 1;
+    if remainder == 0 {
+        return Some(num);
+    }
+    if remainder < 0 {
+        // error
+        return None;
+    }
+    //println!("{:?}", remainder);
+    while remainder > 0 {
+        while num[end_index] < 9 && remainder > 0 {
+            num[end_index] += 1;
+            remainder -= 1;
+        }
+        if end_index > 0 {
+            end_index -= 1;
+        }
+        if end_index == 0 && remainder > 8 {
+            // error
+            println!("{:?}", remainder);
+            return None;
         }
     }
+    println!("{:?}", num);
+    return Some(num);
+}
 
-    while let Some((sum, num, digit_count)) = stack.pop() {
-        if digit_count > digs as usize {
-            continue;
-        }
-        if digit_count == digs as usize && check_and_add_number(num as u32, sum_dig) {
-            numbers.push(num as u64);
-            continue;
-        }
-
-        for next_digit in 0..=9 {
-            if sum + next_digit <= sum_dig {
-                let new_num = num * 10 + next_digit as u64;
-                stack.push((sum + next_digit, new_num, digit_count + 1));
+fn generate_numbers(lowest: Vec<i32>) -> Vec<u64> {
+    let mut numbers: Vec<u64> = Vec::new();
+    let mut string = lowest;
+    numbers.push(vec_to_u64(&string));
+    let i = string.len() - 1;
+    let mut finished = false;
+    while !finished {
+        let mut mutated = false;
+        let mut j = i;
+        while j > 0 {
+            if j < i && string[j + 1] - string[j] > 1 {
+                let mut temp_string = string.clone();
+                //println!("string before and index: {:?} | {:?}", temp_string, j);
+                temp_string[j] += 1;
+                temp_string[j + 1] -= 1;
+                mutated = true;
+                //println!("temp_string is now: {:?}", temp_string);
+                numbers.push(vec_to_u64(&temp_string));
             }
+            if string[j] - string[j - 1] > 1 {
+                string[j - 1] += 1;
+                string[j] -= 1;
+                mutated = true;
+                //println!("string is now: {:?}", string);
+                numbers.push(vec_to_u64(&string));
+            }
+            println!("string is now: {:?}", string);
+            j -= 1;
+            /*
+            if mutated {
+                j = i;
+                mutated = false;
+            } else {
+                j -= 1;
+            }
+            */
+        }
+        if mutated == false {
+            finished = true;
         }
     }
-    numbers
+    return numbers;
 }
 
 fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
+    let mut numbers: Vec<u64>;
     if sum_dig < 2 {
         return None;
     }
     // Still too inefficient. Instead:
     // 1. find lowest matching
     // 2. disperse that until done
-    let mut numbers = create_numbers(sum_dig, digs);
-    if numbers.is_empty() {
+    if let Some(lowest) = find_lowest_valid_number(sum_dig, digs) {
+        numbers = generate_numbers(lowest);
+    } else {
         return None;
     }
     numbers.sort_unstable();
-    println!("{:?}", numbers);
+    numbers.dedup();
+    println!("{:?}", numbers.len());
     let count = numbers.len();
     let min = *numbers.first().unwrap();
     let max = *numbers.last().unwrap();
@@ -144,7 +145,7 @@ fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
 }
 
 pub fn run () {
-    find_all(89, 9);
+    find_all(35, 6);
 }
 
 /* CODEWARS SOLUTIONS
