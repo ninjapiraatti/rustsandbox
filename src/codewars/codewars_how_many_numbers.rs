@@ -97,48 +97,48 @@ fn find_lowest_valid_number(sum: u8, digs: u8) -> Option<Vec<i32>> {
     return Some(num);
 }
 
-fn generate_numbers_two(lowest: Vec<i32>, starting_index: usize) -> Vec<u64> {
+fn find_numbers(lowest: Vec<i32>, starting_index: usize) -> Vec<u64> {
     let mut numbers: Vec<u64> = Vec::new();
     let mut queue: Vec<Vec<i32>> = Vec::new();
-    let mut base_string = lowest;
-    queue.push(base_string.clone());
-    let num = vec_to_u64(&base_string);
+    let mut operable = lowest;
+    queue.push(operable.clone());
+    let num = vec_to_u64(&operable);
     numbers.push(num);
-    let length = base_string.clone().len() - starting_index;
+    let length = operable.clone().len() - starting_index;
     let mut finished = false;
 
     while finished == false {
-        base_string = queue.first().unwrap().clone();
+        operable = queue.first().unwrap().clone();
         let mut i = length;
         finished = true;
         while i > 0 {
             let mut j: i32 = i as i32 - 1;
             while j as i32 >= 0 {
-                if base_string[i] - base_string[j as usize] > 1 {
-                    base_string[j as usize] += 1;
-                    base_string[i] -= 1;
-                    if is_number_mutable(&base_string, i, j as usize) == false {
-                        if num_valid(&base_string, length) == true {
-                            let is_duplicate = queue.contains(&base_string.clone());
-                            let num = vec_to_u64(&base_string);
+                if operable[i] - operable[j as usize] > 1 {
+                    operable[j as usize] += 1;
+                    operable[i] -= 1;
+                    if is_number_mutable(&operable, i, j as usize) == false {
+                        if num_valid(&operable, length) == true {
+                            let is_duplicate = queue.contains(&operable.clone());
+                            let num = vec_to_u64(&operable);
                             if is_duplicate == false && !numbers.contains(&num) {
-                                queue.push(base_string.clone());
+                                queue.push(operable.clone());
                             }
                             numbers.push(num);
                         }
-                        base_string = queue.first().unwrap().clone();
+                        operable = queue.first().unwrap().clone();
                         j -= 1;
                         finished = false;
                         continue;
                     }
-                    let num = vec_to_u64(&base_string);
-                    let is_duplicate = queue.contains(&base_string.clone());
+                    let num = vec_to_u64(&operable);
+                    let is_duplicate = queue.contains(&operable.clone());
                     if is_duplicate == false && !numbers.contains(&num) {
-                        queue.push(base_string.clone());
+                        queue.push(operable.clone());
                         finished = false;
                     }
                     numbers.push(num);
-                    base_string = queue.first().unwrap().clone();
+                    operable = queue.first().unwrap().clone();
                 }
                 j -= 1;
             }
@@ -155,7 +155,7 @@ fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
         return None;
     }
     if let Some(lowest) = find_lowest_valid_number(sum_dig, digs) {
-        numbers.extend(generate_numbers_two(lowest.clone(), 1));
+        numbers.extend(find_numbers(lowest.clone(), 1));
     } else {
         return None;
     }
@@ -178,5 +178,61 @@ pub fn run() {
 
 /* CODEWARS SOLUTIONS
 
+fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
+    dfs(sum_dig, digs, 1, 0)
+    
+}
+
+fn dfs(target: u8, digits_remaining: u8,  min_digit: u8, number: u64) -> Option<(usize, u64, u64)> {
+    if digits_remaining == 1 {
+        if target < 10 && target >= min_digit {
+            let number = number * 10 + target as u64;
+            Some((1, number, number))
+        } else {
+            None
+        }
+    } else {
+        let mut ret = (0, u64::MAX, 0);
+        (min_digit..10.min(target)).for_each(|n| {            
+            if let Some(branch_ret) = dfs(target-n, digits_remaining-1, n, number*10+(n as u64)) {
+                ret.0 += branch_ret.0;
+                ret.1 = ret.1.min(branch_ret.1);
+                ret.2 = ret.2.max(branch_ret.2);
+            }
+        });
+        if ret.0 > 0 {
+            Some(ret)
+        } else {
+            None
+        }        
+    }
+    
+}
+
+*/
+
+/*
+
+fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
+    let mut count = 0usize;
+    let mut min = 0u64;
+    let mut max = 0u64;
+    recurse_search(0, 1, sum_dig, digs, &mut count, &mut min, &mut max);
+    if count > 0 { Some((count, min, max)) } else { None }
+}
+
+fn recurse_search(curr: u64, prev: u64, sum_left: u8, digs_left: u8, count: &mut usize, min: &mut u64, max: &mut u64) {
+    if sum_left == 0 && digs_left == 0 {
+        if *count == 0 { *min = curr; }
+        if *min > curr { *min = curr; }
+        if *max < curr { *max = curr; }
+        *count += 1;
+    } else if digs_left != 0 {
+        for i in prev..10 {
+            if i as u8 > sum_left { return; }
+            recurse_search(10 * curr + i, i, sum_left - i as u8, digs_left - 1, count, min, max);
+        }
+    }
+}
 
 */
