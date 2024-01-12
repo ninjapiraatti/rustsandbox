@@ -19,6 +19,8 @@
 // the greatest such value
 // Note: if there're no values which satisfy these constaints, you should return an empty value (refer to the examples to see what exactly is expected).
 
+use std::time::Instant;
+
 #[cfg(test)]
 mod tests {
     use super::find_all;
@@ -50,6 +52,18 @@ fn u64_to_vec(mut num: u64) -> Vec<i32> {
 }
 */
 
+/*
+fn is_number_mutable(vec: &[i32], current_index: usize, target_index: usize) -> bool {
+    vec[target_index..=current_index].windows(2).all(|window| window[0] < window[1])
+}
+*/
+
+/*
+fn num_valid(vec: Vec<i32>) -> bool {
+    vec.windows(2).all(|window| window[0] <= window[1])
+}
+*/
+
 fn vec_to_u64(vec: &Vec<i32>) -> u64 {
     let mut result: u64 = 0;
     for &digit in vec {
@@ -71,9 +85,9 @@ fn is_number_mutable(vec: &Vec<i32>, current_index: usize, target_index: usize) 
     true
 }
 
-fn num_valid(vec: Vec<i32>) -> bool {
+fn num_valid(vec: &Vec<i32>, len: usize) -> bool {
     let mut i = 0;
-    while i < vec.len() - 1{
+    while i < len{
         if vec[i + 1] < vec[i] {
             return false
         }
@@ -120,12 +134,17 @@ fn generate_numbers_two(lowest: Vec<i32>, starting_index: usize) -> Vec<u64> {
     queue.push(base_string.clone());
     let num = vec_to_u64(&base_string);
     numbers.push(num);
+    let mut iteration = 0;
+    let length = base_string.clone().len() - starting_index;
+    let mut finished = false;
 
-    while queue.is_empty() == false {
+    while finished == false {
         base_string = queue.first().unwrap().clone();
         //println!("\nNew iteration: {:?}", base_string);
-        //println!("queue {:?}", queue);
-        let mut i = base_string.clone().len() - starting_index;
+        iteration += 1;
+        println!("queue {:?} | iteration: {:?}", queue.len(), iteration);
+        let mut i = length;
+        finished = true;
         while i > 0 {
             let mut j: i32 = i as i32 - 1;
             while j as i32 >= 0 {
@@ -133,31 +152,40 @@ fn generate_numbers_two(lowest: Vec<i32>, starting_index: usize) -> Vec<u64> {
                 if base_string[i] - base_string[j as usize] > 1 {
                     base_string[j as usize] += 1;
                     base_string[i] -= 1;
-                    let num = vec_to_u64(&base_string);
                     //println!("NUM: {:?}", num);
                     if is_number_mutable(&base_string, i, j as usize) == false {
                         //println!("NOT MUTABLE: {:?} with indices {:?} and {:?}", num, j, i);
-                        if num_valid(base_string.clone()) == true {
+                        if num_valid(&base_string, length) == true {
                             //println!("Saving {:?} | Pushing: {:?}", num, base_string);
-                            let is_duplicate = queue.binary_search(&base_string.clone());
-                            if is_duplicate.is_err() {
+                            let is_duplicate = queue.contains(&base_string.clone());
+                            let num = vec_to_u64(&base_string);
+                            if is_duplicate == false && !numbers.contains(&num){
                                 queue.push(base_string.clone());
                             }
                             numbers.push(num);
                         }
                         base_string = queue.first().unwrap().clone();
                         j -= 1;
+                        finished = false;
                         continue
                     }
+                    let num = vec_to_u64(&base_string);
+                    /*
                     if numbers.contains(&num) {
                         //println!("NUM EXISTS: {:?}", num);
                         base_string = queue.first().unwrap().clone();
                         j -= 1;
                         continue
                     }
+                    */
+                    let is_duplicate = queue.contains(&base_string.clone());
+                    if is_duplicate == false && !numbers.contains(&num) {
+                        queue.push(base_string.clone());
+                        finished = false;
+                    }
                     //println!("num: {:?} | i: {:?}", num, j);
                     //println!("Saving {:?} | Pushing: {:?}", num, base_string);
-                    queue.push(base_string.clone());
+                    //queue.push(base_string.clone());
                     numbers.push(num);
                     base_string = queue.first().unwrap().clone();
                 }
@@ -171,6 +199,7 @@ fn generate_numbers_two(lowest: Vec<i32>, starting_index: usize) -> Vec<u64> {
 }
 
 fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
+    let start = Instant::now(); // Start timing
     let mut numbers: Vec<u64> = Vec::new();
     if sum_dig < 2 {
         return None;
@@ -184,6 +213,8 @@ fn find_all(sum_dig: u8, digs: u8) -> Option<(usize, u64, u64)> {
     numbers.dedup();
     let count = numbers.len();
     println!("{:?} | {:?}", numbers, count);
+    let duration = start.elapsed(); // Calculate the duration
+    println!("Time elapsed is: {:?}", duration);
     let min = *numbers.first().unwrap();
     let max = *numbers.last().unwrap();
     Some((count, min, max))
@@ -193,8 +224,8 @@ pub fn run () {
     //find_all(10, 3);
     //find_all(27, 3);
     //find_all(84, 4);
-    find_all(35, 6);
-    //find_all(15, 6);
+    //find_all(35, 6);
+    find_all(55, 11);
     //find_all(16, 4);
 }
 
