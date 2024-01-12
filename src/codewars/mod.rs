@@ -2,6 +2,7 @@ pub mod codewars_breakcamelcase;
 pub mod codewars_casinochips;
 pub mod codewars_century;
 pub mod codewars_elevator;
+pub mod codewars_how_many_numbers;
 pub mod codewars_hungarian;
 pub mod codewars_interlaced;
 pub mod codewars_mirror;
@@ -11,7 +12,6 @@ pub mod codewars_removep;
 pub mod codewars_sort_binary_by_levels;
 pub mod codewars_sortbybit;
 pub mod codewars_stones;
-pub mod codewars_how_many_numbers;
 //mod codewars_urlshortener;
 
 pub fn get_programs() -> Vec<(&'static str, fn())> {

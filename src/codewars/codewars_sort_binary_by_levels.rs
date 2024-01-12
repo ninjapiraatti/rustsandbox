@@ -108,8 +108,8 @@ fn tree_by_levels(root: &Node) -> Vec<u32> {
 
 pub fn run() {
     let root = Node::new(1)
-            .left(Node::new(2).left(Node::new(4)).right(Node::new(5)))
-            .right(Node::new(3).left(Node::new(6)));
+        .left(Node::new(2).left(Node::new(4)).right(Node::new(5)))
+        .right(Node::new(3).left(Node::new(6)));
     tree_by_levels(&root);
 }
 
