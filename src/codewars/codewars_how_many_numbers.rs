@@ -19,8 +19,6 @@
 // the greatest such value
 // Note: if there're no values which satisfy these constaints, you should return an empty value (refer to the examples to see what exactly is expected).
 
-use std::time::Instant;
-
 #[cfg(test)]
 mod tests {
     use super::find_all;

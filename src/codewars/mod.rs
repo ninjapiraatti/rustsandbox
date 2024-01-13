@@ -7,6 +7,7 @@ pub mod codewars_hungarian;
 pub mod codewars_interlaced;
 pub mod codewars_mirror;
 pub mod codewars_moviecard;
+pub mod codewars_next_smaller_number;
 pub mod codewars_nsmallest;
 pub mod codewars_removep;
 pub mod codewars_sort_binary_by_levels;
@@ -33,6 +34,7 @@ pub fn get_programs() -> Vec<(&'static str, fn())> {
             codewars_sort_binary_by_levels::run,
         ),
         ("codewars_how_many_numbers", codewars_how_many_numbers::run),
+        ("codewars_next_smaller_number", codewars_next_smaller_number::run),
     ]
 }
 
