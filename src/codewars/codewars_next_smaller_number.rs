@@ -32,6 +32,7 @@ mod tests {
     }
 }
 
+/*
 fn dfs(target: u8, digits_remaining: u8,  min_digit: u8, number: u64) -> Option<(usize, u64, u64)> {
     if digits_remaining == 1 {
         if target < 10 && target >= min_digit {
@@ -56,11 +57,11 @@ fn dfs(target: u8, digits_remaining: u8,  min_digit: u8, number: u64) -> Option<
         }        
     }
     
-}
+}*/
 
 fn get_that_number(start_num: u64, min_num: Option<u64>, mut fast_index: usize, mut slow_index: usize) -> Option<u64> {
     let mut temp_min: u64;
-    if fast_index == 0 && slow_index == 1 {
+    if fast_index == 0 && slow_index == 1 && min_num.is_some() == true {
         println!("Stopping at {:?}", Some(min_num).unwrap());
         return None;
     }
@@ -69,16 +70,20 @@ fn get_that_number(start_num: u64, min_num: Option<u64>, mut fast_index: usize, 
     } else {
         temp_min = start_num;
     }
-    //println!("temp_min: {:?} | fast_index: {:?} | slow_index: {:?}", temp_min, fast_index, slow_index);
+    println!("temp_min: {:?} | fast_index: {:?} | slow_index: {:?}", temp_min, fast_index, slow_index);
     let mut digits = temp_min.to_string().chars().collect::<Vec<_>>();
     if digits[fast_index] > digits[slow_index] && digits[fast_index] != '0' {
         digits.swap(fast_index, slow_index);
         let result_str: String = digits.into_iter().collect();
         let res = result_str.parse::<u64>().unwrap_or(start_num);
-        if min_num.is_none() || (res > temp_min && res < start_num) {
+        if res > temp_min && res < start_num {
+            println!("Changing num. res: {:?} | temp_min: {:?} | start_num: {:?}", res, temp_min, start_num);
             temp_min = res;
         }
-        //println!("temp_min: {:?} | fast_index: {:?} | slow_index: {:?} | res: {:?}", temp_min, fast_index, slow_index, res);
+        if temp_min == start_num && res < temp_min {
+            temp_min = res;
+        }
+        println!("temp_min: {:?} | fast_index: {:?} | slow_index: {:?} | res: {:?}", temp_min, fast_index, slow_index, res);
     }
     if fast_index == 0 && slow_index > 1 {
         slow_index -= 1;
@@ -88,12 +93,19 @@ fn get_that_number(start_num: u64, min_num: Option<u64>, mut fast_index: usize, 
         fast_index -= 1;
     }
 
-    println!("Starting new recursion with {:?}", temp_min);
+    if min_num.is_some() == true {
+        if Some(min_num).unwrap().unwrap() == temp_min {
+            return None;
+        }
+    }
+
+    println!("Starting new recursion with {:?}. fi: {:?} | si: {:?}", temp_min, fast_index, slow_index);
     let better_number = get_that_number(start_num, Some(temp_min), fast_index, slow_index);
-    if better_number.is_none() {
+    if better_number.is_none() == true {
         println!("Stopping recursion at {:?}", temp_min);
         return Some(temp_min);
     }
+    println!("Reached end of line at {:?}", temp_min);
     return None;
 }
 
@@ -105,7 +117,7 @@ fn next_smaller_number(n: u64) -> Option<u64> {
     let start_index = n.to_string().len() - 1;
     if let Some(result) = get_that_number(n, None, start_index - 1, start_index) {
         let duration = start.elapsed();
-        println!("Result: {:?} | {:?}", result, duration);
+        println!("\x1b[32mResult: {:?} | {:?}\x1b[0m", result, duration);
         return Some(result);
     }
     let duration = start.elapsed();
@@ -117,6 +129,7 @@ pub fn run() {
     next_smaller_number(74083);
     next_smaller_number(21);
     next_smaller_number(531);
+    next_smaller_number(907);
     next_smaller_number(1027);
     next_smaller_number(2071);
 }
